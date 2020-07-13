@@ -22,19 +22,6 @@ export function Article(props) {
 
 	const [content, setContent] = React.useState(null);
 
-	const articleInfo = React.useMemo(
-		() => {
-			const url = new URL(props.url);
-			const params = new URLSearchParams(url.search);
-
-			return {
-				bid: params.get('bid'),
-				cid: params.get('cid'),
-			};
-		},
-		[props.url]
-	);
-
 	React.useEffect(
 		() => {
 			setContent(null);
@@ -66,7 +53,8 @@ export function Article(props) {
 	const [isBookmarked, setIsBookmarked] = React.useState(false);
 
 	const onBookmark = () => {
-		fetch(`https://www.ptwxz.com/modules/article/addbookcase.php?bid=${articleInfo.bid}cid=${articleInfo.cid}`).then(() => setIsBookmarked(true));
+		const ids = /10\/(\d+)\/(\d+)/.exec(props.url);
+		fetch(`https://www.ptwxz.com/modules/article/addbookcase.php?bid=${ids[1]}cid=${ids[2]}`).then(() => setIsBookmarked(true));
 	}
 
 	return (

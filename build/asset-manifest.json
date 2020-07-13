@@ -1,10 +1,9 @@
 {
   "files": {
     "main.js": "/main.js",
-    "main.js.map": "/main.js.map",
     "index.html": "/index.html",
     "main.js.LICENSE.txt": "/main.js.LICENSE.txt",
-    "precache-manifest.886d5ba8347acf44a2a5b3ce936f5cec.js": "/precache-manifest.886d5ba8347acf44a2a5b3ce936f5cec.js",
+    "precache-manifest.f835d80bb53d6a7c68cf8377bbfdb49e.js": "/precache-manifest.f835d80bb53d6a7c68cf8377bbfdb49e.js",
     "service-worker.js": "/service-worker.js"
   },
   "entrypoints": [

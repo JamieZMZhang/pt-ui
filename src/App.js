@@ -1,6 +1,7 @@
 import React from 'react';
 import { Article } from './components/Article';
 import { Bookcase } from './components/Bookcase';
+import { Redirect } from './components/Redirect';
 
 function App() {
 	const [url, setUrl] = React.useState(
@@ -18,6 +19,9 @@ function App() {
 
 	if (url.endsWith('bookcase.php')) {
 		return <Bookcase onChangeUrl={ setUrl } />
+	}
+	if (url.includes('readbookcase.php')) {
+		return <Redirect onChangeUrl={ setUrl } url={ url } />
 	}
 	return <Article onChangeUrl={ setUrl } url={ url } />;
 }
