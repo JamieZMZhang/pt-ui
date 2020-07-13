@@ -53,8 +53,8 @@ export function Article(props) {
 	const [isBookmarked, setIsBookmarked] = React.useState(false);
 
 	const onBookmark = () => {
-		const ids = /10\/(\d+)\/(\d+)/.exec(props.url);
-		fetch(`https://www.ptwxz.com/modules/article/addbookcase.php?bid=${ids[1]}cid=${ids[2]}`).then(() => setIsBookmarked(true));
+		const ids = /\d+\/(\d+)\/(\d+)/.exec(props.url);
+		fetch(`https://www.ptwxz.com/modules/article/addbookcase.php?bid=${ids[1]}&cid=${ids[2]}`).then(() => setIsBookmarked(true));
 	}
 
 	return (
