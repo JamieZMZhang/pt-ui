@@ -1,0 +1,360 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<title>飘天文学-飘越天空的小说阅读网.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta name="keywords" content="飘天文学网,小说阅读网" />
+<meta name="description" content="飘天文学提供网络小说在线阅读，做最好的免费小说阅读网!" />
+<link rel="stylesheet" rev="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script language="javascript" type="text/javascript" src="/scripts/common.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="/scripts/headerlogin.js"></script>
+<script language="javascript" type="text/javascript" src="/css/theme.js"></script>
+
+</head>
+<body>
+
+<div class="main m_top">
+<script>login();</script>
+<div class="fr"><a id="st" href="javascript:st();void 0;">繁體中文</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+</div>
+
+<div class="main m_head">
+<div class="h_logo"><a href="https://www.ptwxz.com/"><img src="/css/logo.gif"  border="0" alt="飘天文学" /></a></div>
+<div  class="h_banner">
+</div>
+
+<div class="h_link">
+  <ul class="ulitem">
+  <li><a onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('https://www.ptwxz.com');" href="#">设为首页</a>&nbsp;</li>
+  <li><a href="/help/">新手帮助</a>&nbsp;</li>
+  <li><a href="javascript:window.external.addFavorite('https://www.ptwxz.com','飘天文学-飘越天空的小说阅读网.')">加入收藏</a>&nbsp;</li>
+  </ul>
+</div>
+</div>
+
+<div class="main nav">
+<div class="navinner">
+<ul class="navlist">
+  <li><a href="/">网站首页</a> </li>
+  <li><a href="/booksort1/0/1.html">玄幻魔法</a> </li>
+  <li><a href="/booksort2/0/1.html">武侠修真</a> </li>
+  <li><a href="/booksort3/0/1.html">都市言情</a> </li>
+  <li><a href="/booksort4/0/1.html">历史军事</a> </li>
+  <li><a href="/booksort5/0/1.html">网游竞技</a> </li>
+  <li><a href="/booksort6/0/1.html">科幻小说</a> </li>
+  <li><a href="/booksort7/0/1.html">恐怖灵异</a> </li>
+  <li><a href="/booksort8/0/1.html">同人漫画</a> </li>
+  <li><a href="/booksort9/0/1.html">其他类型</a> </li>
+  <li><a href="/quanben/index.html">全本小说</a> </li>
+  <li><a href="/booksort/0/1.html">全部文章</a> </li>
+</ul></div>
+
+<div class="main m_top">
+
+<div class="fl" style="padding:1px;">
+<form name="articlesearch" method="post" action="/modules/article/search.php" onsubmit="if(searchkey.value=='' || searchkey.value=='输入关键字（支持模糊和繁体搜索）'){alert(' 飘天文学：请输入关键字！');return false;}"  target="_blank">
+<label><input type="radio" name="searchtype" value="author" id="searchtype_1" />作者</label>
+<label><input name="searchtype" type="radio" id="searchtype_0" value="articlename" checked="checked" />书名</label>
+<input name="searchkey" type="text"  class="text1" id="searchkey" onfocus="this.classname='over'; value =''" onblur="this.classname='input'"  value="输入关键字（支持模糊和繁体搜索）" size="30" maxlength="30" />
+<input type="submit" name="Submit" class="button" value=" 搜 索 " />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TD width="648"><span class="hottext"></span></TD>
+</form>
+  </div>
+ 
+</div>
+</div></div>
+<div id="DivTonglan" style="width: 960px;clear: both;text-align: center;margin-left: auto;margin-right: auto;"></div>
+
+
+
+<div class="main">
+
+  <div id="centerl">
+
+
+<div id="content">
+<script language="javascript">
+function check_confirm(){
+	var checkform = document.getElementById('checkform');
+	var checknum = 0;
+	for (var i=0; i < checkform.elements.length; i++){
+	 if (checkform.elements[i].name == 'checkid[]' && checkform.elements[i].checked == true) checknum++; 
+	}
+	if(checknum == 0){
+		alert('请先选择要操作的书目！');
+		return false;
+	}
+	var newclassid = document.getElementById('newclassid');
+	if(newclassid.value == -1){
+		if(confirm('确实要将选中书目移出书架么？')) return true;
+		else return false;
+	}else{
+		return true;
+	}
+}
+</script>
+<form action="" method="post" name="checkform" id="checkform" onsubmit="return check_confirm();">
+<div class="gridtop">
+您的书架可收藏 80 本，已收藏 13 本，本组有 13 本。
+
+&nbsp;&nbsp;&nbsp;&nbsp;选择分组
+  <select name="classlist" onchange="javascript:document.location='bookcase.php?classid='+this.value;">
+    <option value="0" selected="selected">默认书架</option>
+	
+    <option value="1">第1组书架</option>
+	
+    <option value="2">第2组书架</option>
+	
+    <option value="3">第3组书架</option>
+	
+    <option value="4">第4组书架</option>
+	
+    <option value="5">第5组书架</option>
+	
+  </select>
+
+  </div>
+<table class="grid" width="100%" align="center">
+  <tr align="center">
+    <th width="5%"><input type="checkbox" id="checkall" name="checkall" value="checkall" onclick="javascript: for (var i=0;i<this.form.elements.length;i++){ if (this.form.elements[i].name != 'checkkall') this.form.elements[i].checked = form.checkall.checked; }"></th>
+    <th width="14%">文章名称</th>
+    <th width="29%">最新章节</th>
+    <th width="29%">书签</th>
+    <th width="12%">作者</th>
+    <th width="6%">更新</th>
+   <th width="10%">操作</th>
+   </tr>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264204">    </td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10656&bid=3264204" target="_blank">全属性武道</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10656&bid=3264204&cid=8191531" target="_blank">第690章 是谁，总结的如此精辟！</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10656&bid=3264204&cid=8191531" target="_blank">第690章 是谁，总结的如此精辟！</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%C4%AA%C8%EB%BD%AD%BA%FE.html" target="_blank">莫入江湖</a></td>
+   <td class="odd" align="center">07-14
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264204';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3297936">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11098&bid=3297936" target="_blank">我真的不是气运之子</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11098&bid=3297936&cid=8191519" target="_blank">第258章 这，是天师的慈悲啊！</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11098&bid=3297936&cid=8174518" target="_blank">第249章 方某也算绝代天骄~！</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%D4%C6%D6%D0%B5%EE.html" target="_blank">云中殿</a></td>
+   <td class="odd" align="center">07-14
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3297936';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3293001">    </td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11242&bid=3293001" target="_blank">全世界只有我不知道我是高人</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11242&bid=3293001&cid=8191406" target="_blank">第113章 人间力量</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11242&bid=3293001&cid=8191406" target="_blank">第113章 人间力量</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%C0%CF%C4%A7%CD%AF.html" target="_blank">老魔童</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3293001';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264458">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10883&bid=3264458" target="_blank">无敌师叔祖</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10883&bid=3264458&cid=8191304" target="_blank">第三百一十七章:空间曲境</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10883&bid=3264458&cid=8174454" target="_blank">第三百零八章:绝灵海</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%BE%C5%B4%CE%BE%F8.html" target="_blank">九次绝</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264458';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3269698">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10591&bid=3269698" target="_blank">我师兄实在太稳健了</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10591&bid=3269698&cid=8191178" target="_blank">第五百六十七章 驰援玄都城</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10591&bid=3269698&cid=8171984" target="_blank">第五百五十八章 摘葡萄，抓菩提！</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%D1%D4%B9%E9%D5%FD%B4%AB.html" target="_blank">言归正传</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3269698';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3289931">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11066&bid=3289931" target="_blank">你们练武我种田</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11066&bid=3289931&cid=8191160" target="_blank">第三百三十七章：万剑宗的诚意（求订阅）</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11066&bid=3289931&cid=8174779" target="_blank">第三百二十九章：渡劫时间太长怎么办？</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%B0%A5%D3%B4%B0%A1.html" target="_blank">哎哟啊</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3289931';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264457">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10349&bid=3264457" target="_blank">我真要逆天啦</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10349&bid=3264457&cid=8189771" target="_blank">第1294章 开小灶！</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10349&bid=3264457&cid=8174807" target="_blank">第1286章 做人啊，还是谦卑一些的好！</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%C1%F8%D2%BB%CC%F5.html" target="_blank">柳一条</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264457';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264433">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10803&bid=3264433" target="_blank">平平无奇大师兄</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10803&bid=3264433&cid=8189427" target="_blank">第五百一十二章：大罗之境，追溯过去【新书求一切】</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10803&bid=3264433&cid=8175467" target="_blank">第五百零八章：紫梦道人的阅读理解【第一更求月票】</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%BA%DA%D2%B9%C3%D6%CC%EC.html" target="_blank">黑夜弥天</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264433';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3300970">    </td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11308&bid=3300970" target="_blank">我什么都懂</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11308&bid=3300970&cid=8188141" target="_blank">第930章 你选择谁？（四更）</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=11308&bid=3300970&cid=8188141" target="_blank">第930章 你选择谁？（四更）</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%BF%A1%D0%E3%B2%C5.html" target="_blank">俊秀才</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3300970';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3293656">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10954&bid=3293656" target="_blank">史上最强炼气期</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10954&bid=3293656&cid=8188137" target="_blank">第一千六百五十五章 空白石碑</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10954&bid=3293656&cid=8169587" target="_blank">第一千六百三十六章 复制品</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%C0%EE%B5%C0%C8%BB.html" target="_blank">李道然</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3293656';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264456">    </td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10871&bid=3264456" target="_blank">我真不是仙二代</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10871&bid=3264456&cid=8188111" target="_blank">第445章 强悍的红森魔主</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10871&bid=3264456&cid=8188111" target="_blank">第445章 强悍的红森魔主</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%C3%F7%D4%C2%B5%D8%C9%CF%CB%AA.html" target="_blank">明月地上霜</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264456';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264280">    </td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10950&bid=3264280" target="_blank">从精神病院走出的强者</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10950&bid=3264280&cid=8188097" target="_blank">262章 你说的是白衣小孩吗</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=10950&bid=3264280&cid=8188097" target="_blank">262章 你说的是白衣小孩吗</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%D0%C2%B7%E1.html" target="_blank">新丰</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264280';">移除</a></td>
+
+  <tr>
+    <td class="odd" align="center">
+	<input type="checkbox" id="checkid[]" name="checkid[]" value="3264207">    </td>
+    <td class="even"><span class="hottext">新</span><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=9946&bid=3264207" target="_blank">斗罗大陆IV终极斗罗</a></td>
+    
+<td class="odd"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=9946&bid=3264207&cid=8186135" target="_blank">第一千一百六十六章 强大的徐言莫</a>
+	
+	</td>
+    <td class="even"><a href="https://www.ptwxz.com/modules/article/readbookcase.php?aid=9946&bid=3264207&cid=8169246" target="_blank">第一千一百五十四章 反龙族联盟</a></td>
+ <td class="even"><a style="color:#0000ff" href="/author/%CC%C6%BC%D2%C8%FD%C9%D9.html" target="_blank">唐家三少</a></td>
+   <td class="odd" align="center">07-13
+	</td>
+
+    <td class="even" align="center"><a href="javascript:if(confirm('确实要将本书移出书架么？')) document.location='/modules/article/bookcase.php?delid=3264207';">移除</a></td>
+  </tr>
+<tr>
+    <td colspan="7" align="center" class="foot">选中项目
+	<select name="newclassid" id="newclassid">
+	<option value="-1" selected="selected">移出书架</option>
+	<option value="0">移到默认书架</option>
+	
+    <option value="1">移到第1组书架</option>
+	
+    <option value="2">移到第2组书架</option>
+	
+    <option value="3">移到第3组书架</option>
+	
+    <option value="4">移到第4组书架</option>
+	
+    <option value="5">移到第5组书架</option>
+	
+  </select> <input name="btnsubmit" type="submit" value=" 确认 " class="button" /><input name="clsssid" type="hidden" value="0" /></td>
+    </tr>
+</table>
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<div class="main m_foot">
+飘天文学<b><a href="http://www.ptwxz.com/">小说阅读网</a></b>所有小说作品均来自网友上传或转载于其他网站，版权属于原创作者。如侵犯了您的权利，请与本站联系，本站将立刻删除。<br>Copyright www.ptwxz.com | 联系邮箱：support@ptwxz.com | 免费小说阅读网  | <script language="javascript" type="text/javascript" src="/scripts/readindex/tongji.js"></script>
+</div>
+<script language='javascript' src='/scripts/gb1.js'></script>
+</body>
+</html>

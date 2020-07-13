@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Article } from './components/Article';
+import { Bookcase } from './components/Bookcase';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [url, setUrl] = React.useState(
+		window.location.host.startsWith('local')
+			? 'https://www.ptwxz.com/modules/article/bookcase.php'
+			: window.location.href
+	);
+
+	React.useEffect(
+		() => {
+			window.history.pushState(null, '', url.substring(url.indexOf('/', 10)));
+		},
+		[url]
+	);
+
+	if (url.endsWith('bookcase.php')) {
+		return <Bookcase onChangeUrl={ setUrl } />
+	}
+	return <Article onChangeUrl={ setUrl } url={ url } />;
 }
 
 export default App;
