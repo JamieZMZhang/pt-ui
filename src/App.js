@@ -1,5 +1,6 @@
 import React from 'react';
 import { Article } from './components/Article';
+import { Book } from './components/Book';
 import { Bookcase } from './components/Bookcase';
 import { Redirect } from './components/Redirect';
 
@@ -23,7 +24,10 @@ function App() {
 	if (url.includes('readbookcase.php')) {
 		return <Redirect onChangeUrl={ setUrl } url={ url } />
 	}
-	return <Article onChangeUrl={ setUrl } url={ url } />;
+	if (/\d+\/\d+\/\d+/.test(url)) {
+		return <Article onChangeUrl={ setUrl } url={ url } />;
+	}
+	return <Book onChangeUrl={ setUrl } url={ url } />
 }
 
 export default App;

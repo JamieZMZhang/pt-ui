@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import NavBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavNextIcon from '@material-ui/icons/NavigateNext';
@@ -21,6 +22,13 @@ export function Article(props) {
 	const [reloadKey, setReloadKey] = React.useState(0);
 
 	const [content, setContent] = React.useState(null);
+
+	const [fontSize, setFontSize] = React.useState(parseInt(localStorage.fontSize) || 16);
+
+	React.useEffect(
+		() => localStorage.fontSize = fontSize,
+		[fontSize]
+	);
 
 	React.useEffect(
 		() => {
@@ -37,7 +45,9 @@ export function Article(props) {
 				data.title = title.innerText;
 
 				data.before = html.querySelector('.toplink a:nth-child(1)').href;
+				data.list = html.querySelector('.toplink a:nth-child(2)').href + 'index.html';
 				data.after = html.querySelector('.toplink a:nth-child(3)').href;
+
 
 				const temp = document.createElement('div')
 				temp.append(...[...html.childNodes[1].childNodes].filter(n => n.nodeName === 'BR' || n.nodeName === '#text'));
@@ -59,19 +69,21 @@ export function Article(props) {
 
 	return (
 		<>
-			<AppBar position="sticky">
+			<AppBar position="fixed">
 				<Toolbar style={ { display: 'flex', justifyContent: 'space-between' } }>
 					<div>
-						<IconButton onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><ListIcon /></IconButton>
+						<IconButton onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+						<IconButton onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
 						<IconButton onClick={ onBookmark }><FavoriteIcon /></IconButton>
 						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
 					</div>
 					<div>
-						<IconButton onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
-						<IconButton onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+						<IconButton disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
+						<IconButton disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
 					</div>
 				</Toolbar>
 			</AppBar>
+			<AppBar position="static" elevation={ 0 } style={ { zIndex: 0 } }><Toolbar /></AppBar>
 			{
 				isBookmarked && <Dialog open>
 					<DialogContent>
@@ -87,8 +99,14 @@ export function Article(props) {
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h4" style={ { paddingTop: 8 } }>{ content.title }</Typography>
-							<Typography style={ { whiteSpace: 'pre-wrap' } }>{ content.article }</Typography>
+							<Typography variant="h5" style={ { paddingTop: 8 } }>{ content.title }</Typography>
+							<Typography style={ { fontSize, whiteSpace: 'pre-wrap' } }>{ content.article }</Typography>
+							{
+								!content.after.endsWith('index.html') &&
+								<div style={ { textAlign: 'center' } }>
+									<IconButton onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+								</div>
+							}
 						</>
 				}
 			</Container>
