@@ -14,8 +14,10 @@ import ListIcon from '@material-ui/icons/List';
 import NavBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavNextIcon from '@material-ui/icons/NavigateNext';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import TextFormatIcon from '@material-ui/icons/TextFormat';
 import * as React from 'react';
 import { fetchPt } from './../fetch-pt';
+import { DisplayConfig } from './DisplayConfig';
 import { Loading } from './Loading';
 
 export function Article(props) {
@@ -23,11 +25,15 @@ export function Article(props) {
 
 	const [content, setContent] = React.useState(null);
 
-	const [fontSize, setFontSize] = React.useState(parseInt(localStorage.fontSize) || 16);
+	const [, rerender] = React.useState(0);
 
 	React.useEffect(
-		() => localStorage.fontSize = fontSize,
-		[fontSize]
+		() => {
+			localStorage.fontSize = localStorage.fontSize || 16;
+			localStorage.backgroundColor = localStorage.backgroundColor || 'white';
+			localStorage.textColor = localStorage.textColor || 'black';
+		},
+		[]
 	);
 
 	React.useEffect(
@@ -52,7 +58,7 @@ export function Article(props) {
 				const temp = document.createElement('div')
 				temp.append(...[...html.childNodes[1].childNodes].filter(n => n.nodeName === 'BR' || n.nodeName === '#text'));
 				temp.innerHTML = temp.innerHTML.trimStart().trimEnd();
-				data.article = temp.innerHTML.replace(/&nbsp;/g, ' ').replace(/<br>/g, '\n').replace(/\n\n\n/g, '\n\n');
+				data.article = temp.innerHTML.replace(/&nbsp;/g, ' ').replace(/<br>/g, '\n').replace(/\n\n\n/g, '\n\n').trimStart().trimEnd();
 
 				setContent(data);
 			});
@@ -65,7 +71,11 @@ export function Article(props) {
 	const onBookmark = () => {
 		const ids = /\d+\/(\d+)\/(\d+)/.exec(props.url);
 		fetch(`https://www.ptwxz.com/modules/article/addbookcase.php?bid=${ids[1]}&cid=${ids[2]}`).then(() => setIsBookmarked(true));
-	}
+	};
+
+	const [showDisplayConfig, setShowDisplayConfig] = React.useState(false);
+
+
 
 	return (
 		<>
@@ -76,6 +86,7 @@ export function Article(props) {
 						<IconButton onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
 						<IconButton onClick={ onBookmark }><FavoriteIcon /></IconButton>
 						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+						<IconButton onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
 					</div>
 					<div>
 						<IconButton disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
@@ -85,7 +96,8 @@ export function Article(props) {
 			</AppBar>
 			<AppBar position="static" elevation={ 0 } style={ { zIndex: 0 } }><Toolbar /></AppBar>
 			{
-				isBookmarked && <Dialog open>
+				isBookmarked &&
+				<Dialog open>
 					<DialogContent>
 						<DialogContentText>已加入書籤</DialogContentText>
 					</DialogContent>
@@ -94,16 +106,23 @@ export function Article(props) {
 					</DialogActions>
 				</Dialog>
 			}
-			<Container>
+			{
+				showDisplayConfig &&
+				<DisplayConfig
+					onChange={ () => rerender(+new Date()) }
+					onClose={ () => setShowDisplayConfig(false) }
+				/>
+			}
+			<Container style={ { backgroundColor: localStorage.backgroundColor } }>
 				{
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h5" style={ { paddingTop: 8 } }>{ content.title }</Typography>
-							<Typography style={ { fontSize, whiteSpace: 'pre-wrap' } }>{ content.article }</Typography>
+							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } }>{ content.title }</Typography>
+							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 36, } }>{ content.article }</Typography>
 							{
 								!content.after.endsWith('index.html') &&
-								<div style={ { textAlign: 'center' } }>
+								<div style={ { textAlign: 'center', paddingBottom: 64 } }>
 									<IconButton onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
 								</div>
 							}

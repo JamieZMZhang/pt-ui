@@ -53,8 +53,8 @@ export function Book(props) {
 							<Typography variant="h5" style={ { paddingTop: 8 } }>{ content.title }</Typography>
 							<List>
 								{
-									content.articles.map(a => (
-										<ListItem button onClick={ () => props.onChangeUrl(a.link) }>
+									content.articles.map((a, i) => (
+										<ListItem button key={ i } onClick={ () => props.onChangeUrl(a.link) }>
 											<ListItemText primary={ a.name } />
 										</ListItem>
 									))

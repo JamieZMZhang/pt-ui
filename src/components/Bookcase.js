@@ -27,7 +27,7 @@ export function Bookcase(props) {
 
 	const [list, setList] = React.useState(null);
 
-	const [filterNew, setFilterNew] = React.useState(false);
+	const [filterNew, setFilterNew] = React.useState(true);
 
 	const filteredList = React.useMemo(
 		() => list === null
@@ -62,13 +62,14 @@ export function Bookcase(props) {
 
 	return (
 		<>
-			<AppBar position="sticky">
+			<AppBar position="fixed">
 				<Toolbar>
 					<div>
 						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
 					</div>
 				</Toolbar>
 			</AppBar>
+			<AppBar position="static" style={ { zIndex: 0 } }><Toolbar /></AppBar>
 			<Container style={ { paddingTop: 8 } }>
 				{
 					filteredList === null

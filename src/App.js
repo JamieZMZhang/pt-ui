@@ -13,10 +13,22 @@ function App() {
 
 	React.useEffect(
 		() => {
-			window.history.pushState(null, '', url.substring(url.indexOf('/', 10)));
+			window.history.pushState(null, 'PT GUI', url.substring(url.indexOf('/', 10)));
 		},
 		[url]
 	);
+	// React.useEffect(
+	// 	() => {
+	// 		window.addEventListener('popstate', () => {
+	// 			console.log('pop');
+	// 			if (window.location.href !== url) {
+	// 				console.log(window.location.href);
+	// 				setUrl(window.location.href);
+	// 			}
+	// 		});
+	// 	},
+	// 	[]
+	// );
 
 	if (url.endsWith('bookcase.php')) {
 		return <Bookcase onChangeUrl={ setUrl } />
