@@ -71,18 +71,22 @@ export function Bookcase(props) {
 						: <>
 							<FormControlLabel
 								control={ <Switch checked={ filterNew } onChange={ evt => setFilterNew(evt.target.checked) } /> }
-								label={ filterNew ? '更新' : '全部' }
+								label={ <span style={ { color: localStorage.textColor } }>{ filterNew ? '更新' : '全部' } </span> }
 							/>
 
-							<List>
+							<List style={ { color: localStorage.textColor } }>
 								{ filteredList.map(book => (
-									<ListItem button key={ book.name } onClick={ () => props.onChangeUrl(book.bookmarkLink) } onContextMenu={ evt => {
-										evt.preventDefault();
-										setMenuTarget({ el: evt.currentTarget, data: book });
-									} }>
+									<ListItem
+										button
+										key={ book.name }
+										onClick={ () => props.onChangeUrl(book.bookmarkLink) } onContextMenu={ evt => {
+											evt.preventDefault();
+											setMenuTarget({ el: evt.currentTarget, data: book });
+										} }>
 										<ListItemText
-											primary={ book.latest !== book.bookmark ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={ newArticleAnchor }>{ book.name }</Badge> : book.name }
-											secondary={ <>最新：{ book.latest }<br />書籤：{ book.bookmark }</> }
+											color="inherit"
+											primary={ book.latest !== book.bookmark ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={ newArticleAnchor } children={ book.name } /> : book.name }
+											secondary={ <span style={ { color: localStorage.textColor + 'aa' } }>最新：{ book.latest }<br />書籤：{ book.bookmark }</span> }
 										/>
 									</ListItem>
 								)) }

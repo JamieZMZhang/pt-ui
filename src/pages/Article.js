@@ -12,7 +12,7 @@ import ListIcon from '@material-ui/icons/List';
 import NavBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavNextIcon from '@material-ui/icons/NavigateNext';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import TextFormatIcon from '@material-ui/icons/TextFormat';
+import TextFormatIcon from '@material-ui/icons/Settings';
 import * as React from 'react';
 import { PtToolbar } from '../components/PtToolbar';
 import { fetchPt } from './../fetch-pt';
@@ -109,17 +109,17 @@ export function Article(props) {
 					onClose={ () => setShowDisplayConfig(false) }
 				/>
 			}
-			<Container style={ { backgroundColor: localStorage.backgroundColor } }>
+			<Container>
 				{
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } }>{ content.title }</Typography>
-							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 36, } }>{ content.article }</Typography>
+							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } } children={ content.title } />
+							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 36, } } children={ content.article } />
 							{
 								!content.after.endsWith('index.html') &&
-								<div style={ { textAlign: 'center', paddingBottom: 64 } }>
-									<IconButton onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+								<div style={ { textAlign: 'center', paddingBottom: 64, color: localStorage.textColor } }>
+									<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.after) } children={ <NavNextIcon /> } />
 								</div>
 							}
 						</>

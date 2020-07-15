@@ -21,10 +21,17 @@ export function DisplayConfig(props) {
 		props.onChange();
 	};
 
+	React.useEffect(
+		() => {
+			document.body.style.backgroundColor = localStorage.backgroundColor;
+		},
+		[localStorage.backgroundColor]
+	);
+
 	return (
 		<Dialog open>
 			<DialogContent>
-				<Grid container>
+				<Grid container spacing={2}>
 					<Grid item xs={ 12 }>
 						<Typography>Font Size</Typography>
 						<Button onClick={ () => changeFontSize(-1) }><MinusIcon /></Button>

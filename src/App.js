@@ -15,6 +15,13 @@ function App() {
 		[url]
 	);
 
+	React.useEffect(
+		() => {
+			document.body.style.backgroundColor = localStorage.backgroundColor;
+		},
+		[]
+	);
+
 	if (url.endsWith('bookcase.php')) {
 		return <Bookcase onChangeUrl={ setUrl } />
 	}

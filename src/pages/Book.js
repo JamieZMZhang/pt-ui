@@ -46,14 +46,12 @@ export function Book(props) {
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h5" style={ { paddingTop: 8 } }>{ content.title }</Typography>
-							<List>
+							<Typography variant="h5" style={ { paddingTop: 8, color: localStorage.textColor } } children={ content.title } />
+							<List style={ { color: localStorage.textColor } }>
 								{
-									content.articles.map((a, i) => (
-										<ListItem button key={ i } onClick={ () => props.onChangeUrl(a.link) }>
-											<ListItemText primary={ a.name } />
-										</ListItem>
-									))
+									content.articles.map((a, i) =>
+										<ListItem button key={ i } onClick={ () => props.onChangeUrl(a.link) } children={ <ListItemText primary={ a.name } color="inherit" /> } />
+									)
 								}
 							</List>
 						</>

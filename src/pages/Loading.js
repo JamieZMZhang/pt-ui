@@ -11,9 +11,11 @@ export function Loading() {
 			right: 0,
 			display: 'flex',
 			justifyContent: 'center',
-			alignItems: 'center'
+			alignItems: 'center',
+			backgroundColor: localStorage.backgroundColor,
+			color: localStorage.textColor,
 		} }>
-			<CircularProgress />
+			<CircularProgress color="inherit" />
 		</div>
 	);
 }
