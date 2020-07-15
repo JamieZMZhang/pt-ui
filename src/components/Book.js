@@ -38,9 +38,9 @@ export function Book(props) {
 		<>
 			<AppBar position="fixed">
 				<Toolbar style={ { display: 'flex', justifyContent: 'space-between' } }>
-					<div>
-						<IconButton onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+					<div style={ { color: 'inherit' } }>
+						<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+						<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
 					</div>
 				</Toolbar>
 			</AppBar>

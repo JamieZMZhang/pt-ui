@@ -81,16 +81,16 @@ export function Article(props) {
 		<>
 			<AppBar position="fixed">
 				<Toolbar style={ { display: 'flex', justifyContent: 'space-between' } }>
-					<div>
-						<IconButton onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-						<IconButton onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
-						<IconButton onClick={ onBookmark }><FavoriteIcon /></IconButton>
-						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-						<IconButton onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
+					<div style={ { color: 'inherit' } }>
+						<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+						<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
+						<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
+						<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+						<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
 					</div>
-					<div>
-						<IconButton disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
-						<IconButton disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+					<div style={ { color: 'inherit' } }>
+						<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
+						<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
 					</div>
 				</Toolbar>
 			</AppBar>

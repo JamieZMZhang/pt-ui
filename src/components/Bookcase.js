@@ -64,8 +64,8 @@ export function Bookcase(props) {
 		<>
 			<AppBar position="fixed">
 				<Toolbar>
-					<div>
-						<IconButton onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+					<div style={ { color: 'inherit' } }>
+						<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
 					</div>
 				</Toolbar>
 			</AppBar>
