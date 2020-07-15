@@ -1,34 +1,19 @@
 import React from 'react';
-import { Article } from './components/Article';
-import { Book } from './components/Book';
-import { Bookcase } from './components/Bookcase';
-import { Redirect } from './components/Redirect';
+import { Article } from './pages/Article';
+import { Book } from './pages/Book';
+import { Bookcase } from './pages/Bookcase';
+import { Redirect } from './pages/Redirect';
 
 function App() {
-	const [url, setUrl] = React.useState(
-		window.location.host.startsWith('local')
-			? 'https://www.ptwxz.com/modules/article/bookcase.php'
-			: window.location.href
-	);
+	const [url, setUrl] = React.useState(window.location.href);
 
 	React.useEffect(
 		() => {
 			window.history.pushState(null, 'PT GUI', url.substring(url.indexOf('/', 10)));
+			document.querySelector('html').scrollTop = 0;
 		},
 		[url]
 	);
-	// React.useEffect(
-	// 	() => {
-	// 		window.addEventListener('popstate', () => {
-	// 			console.log('pop');
-	// 			if (window.location.href !== url) {
-	// 				console.log(window.location.href);
-	// 				setUrl(window.location.href);
-	// 			}
-	// 		});
-	// 	},
-	// 	[]
-	// );
 
 	if (url.endsWith('bookcase.php')) {
 		return <Bookcase onChangeUrl={ setUrl } />

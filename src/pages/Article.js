@@ -1,4 +1,3 @@
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,7 +5,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
@@ -16,6 +14,7 @@ import NavNextIcon from '@material-ui/icons/NavigateNext';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import TextFormatIcon from '@material-ui/icons/TextFormat';
 import * as React from 'react';
+import { PtToolbar } from '../components/PtToolbar';
 import { fetchPt } from './../fetch-pt';
 import { DisplayConfig } from './DisplayConfig';
 import { Loading } from './Loading';
@@ -79,22 +78,19 @@ export function Article(props) {
 
 	return (
 		<>
-			<AppBar position="fixed">
-				<Toolbar style={ { display: 'flex', justifyContent: 'space-between' } }>
-					<div style={ { color: 'inherit' } }>
-						<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-						<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
-						<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
-						<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-						<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
-					</div>
-					<div style={ { color: 'inherit' } }>
-						<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
-						<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
-					</div>
-				</Toolbar>
-			</AppBar>
-			<AppBar position="static" elevation={ 0 } style={ { zIndex: 0 } }><Toolbar /></AppBar>
+			<PtToolbar>
+				<div style={ { color: 'inherit' } }>
+					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
+					<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
+				</div>
+				<div style={ { color: 'inherit' } }>
+					<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
+					<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+				</div>
+			</PtToolbar>
 			{
 				isBookmarked &&
 				<Dialog open>

@@ -1,4 +1,3 @@
-import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,9 +8,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
-import Toolbar from '@material-ui/core/Toolbar';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import * as React from 'react';
+import { PtToolbar } from '../components/PtToolbar';
 import { fetchPt } from './../fetch-pt';
 import { Loading } from './Loading';
 
@@ -62,14 +61,9 @@ export function Bookcase(props) {
 
 	return (
 		<>
-			<AppBar position="fixed">
-				<Toolbar>
-					<div style={ { color: 'inherit' } }>
-						<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-					</div>
-				</Toolbar>
-			</AppBar>
-			<AppBar position="static" style={ { zIndex: 0 } }><Toolbar /></AppBar>
+			<PtToolbar>
+				<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+			</PtToolbar>
 			<Container style={ { paddingTop: 8 } }>
 				{
 					filteredList === null
