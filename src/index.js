@@ -9,11 +9,11 @@ function init() {
 	localStorage.fontSize = localStorage.fontSize || 16;
 	localStorage.backgroundColor = localStorage.backgroundColor || 'white';
 	localStorage.textColor = localStorage.textColor || 'black';
-	
+
 	document.clear();
 	document.write(`
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-	<div id="root" style="width:100vw;height:100vh;display:flex;flex-direction:column"></div>
+	<div id="root"></div>
 `);
 	ReactDOM.render(
 		<ErrorBounday>

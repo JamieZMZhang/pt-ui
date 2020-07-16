@@ -10,7 +10,7 @@ function App() {
 	React.useEffect(
 		() => {
 			window.history.pushState(null, 'PT GUI', url.substring(url.indexOf('/', 10)));
-			document.querySelector('html').scrollTop = 0;
+			document.body.scrollTop = 0;
 		},
 		[url]
 	);
