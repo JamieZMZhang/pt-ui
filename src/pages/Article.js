@@ -92,7 +92,7 @@ export function Article(props) {
 						? <Loading />
 						: <>
 							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } } children={ content.title } />
-							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 36, } } children={ content.article } />
+							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 200, } } children={ content.article } />
 							{
 								!content.after.endsWith('index.html') &&
 								<div style={ { height: '60vh', color: localStorage.textColor, display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
