@@ -1,9 +1,5 @@
-import Button from '@material-ui/core/Button';
+import { Snackbar } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -25,15 +21,6 @@ export function Article(props) {
 	const [content, setContent] = React.useState(null);
 
 	const [, rerender] = React.useState(0);
-
-	React.useEffect(
-		() => {
-			localStorage.fontSize = localStorage.fontSize || 16;
-			localStorage.backgroundColor = localStorage.backgroundColor || 'white';
-			localStorage.textColor = localStorage.textColor || 'black';
-		},
-		[]
-	);
 
 	React.useEffect(
 		() => {
@@ -91,17 +78,7 @@ export function Article(props) {
 					<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
 				</div>
 			</PtToolbar>
-			{
-				isBookmarked &&
-				<Dialog open>
-					<DialogContent>
-						<DialogContentText>已加入書籤</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={ () => setIsBookmarked(false) }>確定</Button>
-					</DialogActions>
-				</Dialog>
-			}
+			<Snackbar open={ isBookmarked } onClose={ () => setIsBookmarked(false) } message="已加入書籤" style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor } } />
 			{
 				showDisplayConfig &&
 				<DisplayConfig
@@ -118,8 +95,8 @@ export function Article(props) {
 							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 36, } } children={ content.article } />
 							{
 								!content.after.endsWith('index.html') &&
-								<div style={ { textAlign: 'center', paddingBottom: 64, color: localStorage.textColor } }>
-									<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.after) } children={ <NavNextIcon /> } />
+								<div style={ { height: '60vh', color: localStorage.textColor, display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
+									<IconButton size="large" variant="outlined" color="inherit" style={ { width: 300, height: 300, borderWidth: 1, borderStyle: 'solid' } } onClick={ () => props.onChangeUrl(content.after) } children={ <NavNextIcon style={ { fontSize: 180 } } /> } />
 								</div>
 							}
 						</>
