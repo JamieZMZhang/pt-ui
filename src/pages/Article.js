@@ -86,7 +86,7 @@ export function Article(props) {
 					onClose={ () => setShowDisplayConfig(false) }
 				/>
 			}
-			<Container>
+			<Container key={ props.url }>
 				{
 					content === null
 						? <Loading />
