@@ -61,10 +61,7 @@ export function Bookcase(props) {
 
 	return (
 		<>
-			<PtToolbar>
-				<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-			</PtToolbar>
-			<Container style={ { paddingTop: 8 } }>
+			<Container style={ { paddingBottom: 8 } }>
 				{
 					filteredList === null
 						? <Loading />
@@ -97,6 +94,9 @@ export function Bookcase(props) {
 						</>
 				}
 			</Container>
+			<PtToolbar>
+				<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+			</PtToolbar>
 		</>
 	);
 }

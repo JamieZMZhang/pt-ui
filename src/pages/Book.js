@@ -35,12 +35,6 @@ export function Book(props) {
 
 	return (
 		<>
-			<PtToolbar>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-				</div>
-			</PtToolbar>
 			<Container>
 				{
 					content === null
@@ -57,6 +51,12 @@ export function Book(props) {
 						</>
 				}
 			</Container>
+			<PtToolbar>
+				<div style={ { color: 'inherit' } }>
+					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+				</div>
+			</PtToolbar>
 		</>
 	);
 }

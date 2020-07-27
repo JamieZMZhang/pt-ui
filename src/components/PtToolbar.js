@@ -11,11 +11,8 @@ const zIndex = { zIndex: 0 };
 
 export function PtToolbar(props) {
 	return (
-		<>
-			<AppBar position="fixed">
-				<Toolbar style={ toolbarStyle } children={ props.children } />
-			</AppBar>
-			<AppBar position="static" elevation={ 0 } style={ zIndex }><Toolbar /></AppBar>
-		</>
+		<AppBar position="fixed" style={ { bottom: 0, top: 'auto' } }>
+			<Toolbar style={ toolbarStyle } children={ props.children } />
+		</AppBar>
 	);
 }

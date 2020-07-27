@@ -65,19 +65,6 @@ export function Article(props) {
 
 	return (
 		<>
-			<PtToolbar>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
-					<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
-				</div>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
-					<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
-				</div>
-			</PtToolbar>
 			<Snackbar open={ isBookmarked } onClose={ () => setIsBookmarked(false) } message="已加入書籤" style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor } } />
 			{
 				showDisplayConfig &&
@@ -92,16 +79,23 @@ export function Article(props) {
 						? <Loading />
 						: <>
 							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } } children={ content.title } />
-							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 200, } } children={ content.article } />
-							{
-								!content.after.endsWith('index.html') &&
-								<div style={ { height: '60vh', color: localStorage.textColor, display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
-									<IconButton size="large" variant="outlined" color="inherit" style={ { width: 300, height: 300, borderWidth: 1, borderStyle: 'solid' } } onClick={ () => props.onChangeUrl(content.after) } children={ <NavNextIcon style={ { fontSize: 180 } } /> } />
-								</div>
-							}
+							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 200, userSelect: 'none' } } children={ content.article } />
 						</>
 				}
 			</Container>
+			<PtToolbar>
+				<div style={ { color: 'inherit' } }>
+					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
+					<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+					<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
+				</div>
+				<div style={ { color: 'inherit' } }>
+					<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
+					<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+				</div>
+			</PtToolbar>
 		</>
 	);
 }
