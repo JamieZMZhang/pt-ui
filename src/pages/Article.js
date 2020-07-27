@@ -1,4 +1,4 @@
-import { Snackbar } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -65,7 +65,13 @@ export function Article(props) {
 
 	return (
 		<>
-			<Snackbar open={ isBookmarked } onClose={ () => setIsBookmarked(false) } message="已加入書籤" style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor } } />
+			<Snackbar
+				message="已加入書籤"
+				open={ isBookmarked }
+				onClose={ () => setIsBookmarked(false) }
+				style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor, bottom: 70 } }
+				action={ <Button onClick={ () => setIsBookmarked(false) } children="關閉" /> }
+			/>
 			{
 				showDisplayConfig &&
 				<DisplayConfig
