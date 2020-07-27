@@ -70,7 +70,7 @@ export function Article(props) {
 				open={ isBookmarked }
 				onClose={ () => setIsBookmarked(false) }
 				style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor, bottom: 70 } }
-				action={ <Button onClick={ () => setIsBookmarked(false) } children="關閉" /> }
+				action={ <Button color="inherit" onClick={ () => setIsBookmarked(false) } children="關閉" /> }
 			/>
 			{
 				showDisplayConfig &&
