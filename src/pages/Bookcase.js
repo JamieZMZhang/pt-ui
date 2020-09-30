@@ -1,18 +1,10 @@
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Switch from '@material-ui/core/Switch';
+import { Badge, Container, Divider, FormControlLabel, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Switch } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import * as React from 'react';
 import { PtToolbar } from '../components/PtToolbar';
 import { fetchPt } from './../fetch-pt';
 import { Loading } from './Loading';
+
 
 const getContent = cell => cell.textContent.trimStart().trimEnd();
 
@@ -51,6 +43,7 @@ export function Bookcase(props) {
 					latestLink: tr.cells[2].querySelector('a').href,
 					bookmark: getContent(tr.cells[3]),
 					bookmarkLink: tr.cells[3].querySelector('a').href,
+					deleteId: /delid=(\d+)/.exec(tr.cells[6].querySelector('a').href)[1]
 				})));
 			});
 		},
@@ -59,18 +52,31 @@ export function Bookcase(props) {
 
 	const [menuTarget, setMenuTarget] = React.useState(null);
 
+	const onReload = React.useCallback(
+		() => {
+			setReloadKey(+new Date());
+		},
+		[setReloadKey]
+	);
+
+	const onDeleteBookmark = async bookId => {
+		if (window.confirm('確定要刪除本書嗎？')) {
+			await fetch(`https://www.ptwxz.com/modules/article/bookcase.php?delid=${menuTarget.data.deleteId}`);
+			onReload();
+		};
+	};
+
 	return (
 		<>
-			<Container style={ { paddingBottom: 8 } }>
+			<Container style={ { paddingBottom: 8 } } maxWidth="sm">
 				{
 					filteredList === null
 						? <Loading />
 						: <>
 							<FormControlLabel
 								control={ <Switch checked={ filterNew } onChange={ evt => setFilterNew(evt.target.checked) } /> }
-								label={ <span style={ { color: localStorage.textColor } }>{ filterNew ? '更新' : '全部' } </span> }
+								label={ <span style={ { color: localStorage.textColor } } children={ filterNew ? '更新' : '全部' } /> }
 							/>
-
 							<List style={ { color: localStorage.textColor } }>
 								{ filteredList.map(book => (
 									<ListItem
@@ -89,13 +95,15 @@ export function Bookcase(props) {
 								)) }
 							</List>
 							<Menu open={ !!menuTarget } anchorEl={ menuTarget && menuTarget.el } onClose={ () => setMenuTarget(null) }>
-								<MenuItem onClick={ () => props.onChangeUrl(menuTarget.data.latestLink) }>閱讀最新</MenuItem>
+								<MenuItem onClick={ () => props.onChangeUrl(menuTarget.data.latestLink) } children="最新章節" />
+								<Divider />
+								<MenuItem onClick={ () => onDeleteBookmark(menuTarget.data.deleteId) } children="刪除書籤" style={ { color: 'red' } } />
 							</Menu>
 						</>
 				}
 			</Container>
 			<PtToolbar>
-				<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+				<IconButton color="inherit" onClick={ onReload }><RefreshIcon /></IconButton>
 			</PtToolbar>
 		</>
 	);

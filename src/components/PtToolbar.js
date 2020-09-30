@@ -7,8 +7,6 @@ const toolbarStyle = {
 	justifyContent: 'space-between'
 };
 
-const zIndex = { zIndex: 0 };
-
 export function PtToolbar(props) {
 	return (
 		<AppBar position="fixed" style={ { bottom: 0, top: 'auto' } }>

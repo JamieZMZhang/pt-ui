@@ -79,7 +79,7 @@ export function Article(props) {
 					onClose={ () => setShowDisplayConfig(false) }
 				/>
 			}
-			<Container key={ props.url }>
+			<Container key={ props.url } maxWidth="sm">
 				{
 					content === null
 						? <Loading />

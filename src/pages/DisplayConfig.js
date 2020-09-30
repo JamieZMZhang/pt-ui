@@ -25,30 +25,31 @@ export function DisplayConfig(props) {
 		() => {
 			document.body.style.backgroundColor = localStorage.backgroundColor;
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[localStorage.backgroundColor]
 	);
 
 	return (
 		<Dialog open>
 			<DialogContent>
-				<Grid container spacing={2}>
+				<Grid container spacing={ 2 }>
 					<Grid item xs={ 12 }>
-						<Typography>Font Size</Typography>
+						<Typography children="Font Size" />
 						<Button onClick={ () => changeFontSize(-1) }><MinusIcon /></Button>
 						<Button onClick={ () => changeFontSize(1) }><PlusIcon /></Button>
 					</Grid>
 					<Grid item xs={ 12 }>
-						<Typography>Background Color</Typography>
+						<Typography children="背景顏色" />
 						<input type="color" value={ localStorage.backgroundColor } onChange={ evt => changeColor('backgroundColor', evt) } />
 					</Grid>
 					<Grid item xs={ 12 }>
-						<Typography>Text Color</Typography>
+						<Typography children="字體顏色" />
 						<input type="color" value={ localStorage.textColor } onChange={ evt => changeColor('textColor', evt) } />
 					</Grid>
 				</Grid>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={ props.onClose }>確定</Button>
+				<Button onClick={ props.onClose } children="確定" />
 			</DialogActions>
 		</Dialog>
 	);
