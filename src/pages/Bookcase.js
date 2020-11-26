@@ -59,51 +59,58 @@ export function Bookcase(props) {
 		[setReloadKey]
 	);
 
-	const onDeleteBookmark = async bookId => {
-		if (window.confirm('確定要刪除本書嗎？')) {
-			await fetch(`https://www.ptwxz.com/modules/article/bookcase.php?delid=${menuTarget.data.deleteId}`);
-			onReload();
-		};
-	};
+	const onDeleteBookmark = React.useCallback(
+		async bookId => {
+			if (window.confirm('確定要刪除本書嗎？')) {
+				await fetch(`https://www.ptwxz.com/modules/article/bookcase.php?delid=${bookId}`);
+				setMenuTarget(null);
+				onReload();
+			};
+		},
+		[onReload, setMenuTarget]
+	);
 
 	return (
 		<>
-			<Container style={ { paddingBottom: 8 } } maxWidth="sm">
+			<Container style={{ paddingBottom: 8 }} maxWidth="sm">
 				{
 					filteredList === null
 						? <Loading />
 						: <>
 							<FormControlLabel
-								control={ <Switch checked={ filterNew } onChange={ evt => setFilterNew(evt.target.checked) } /> }
-								label={ <span style={ { color: localStorage.textColor } } children={ filterNew ? '更新' : '全部' } /> }
+								control={<Switch checked={filterNew} onChange={evt => setFilterNew(evt.target.checked)} />}
+								label={<span style={{ color: localStorage.textColor }} children={filterNew ? '更新' : '全部'} />}
 							/>
-							<List style={ { color: localStorage.textColor } }>
-								{ filteredList.map(book => (
+							<List style={{ color: localStorage.textColor }}>
+								{filteredList.map(book => (
 									<ListItem
 										button
-										key={ book.name }
-										onClick={ () => props.onChangeUrl(book.bookmarkLink) } onContextMenu={ evt => {
+										key={book.name}
+										onClick={() => props.onChangeUrl(book.bookmarkLink)} onContextMenu={evt => {
 											evt.preventDefault();
 											setMenuTarget({ el: evt.currentTarget, data: book });
-										} }>
+										}}>
 										<ListItemText
 											color="inherit"
-											primary={ book.latest !== book.bookmark ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={ newArticleAnchor } children={ book.name } /> : book.name }
-											secondary={ <span style={ { color: localStorage.textColor + 'aa' } }>最新：{ book.latest }<br />書籤：{ book.bookmark }</span> }
+											primary={book.latest !== book.bookmark ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={newArticleAnchor} children={book.name} /> : book.name}
+											secondary={<span style={{ color: localStorage.textColor + 'aa' }}>最新：{book.latest}<br />書籤：{book.bookmark}</span>}
 										/>
 									</ListItem>
-								)) }
+								))}
 							</List>
-							<Menu open={ !!menuTarget } anchorEl={ menuTarget && menuTarget.el } onClose={ () => setMenuTarget(null) }>
-								<MenuItem onClick={ () => props.onChangeUrl(menuTarget.data.latestLink) } children="最新章節" />
-								<Divider />
-								<MenuItem onClick={ () => onDeleteBookmark(menuTarget.data.deleteId) } children="刪除書籤" style={ { color: 'red' } } />
-							</Menu>
+							{
+								menuTarget &&
+								<Menu open={!!menuTarget} anchorEl={menuTarget && menuTarget.el} onClose={() => setMenuTarget(null)}>
+									<MenuItem onClick={() => props.onChangeUrl(menuTarget.data.latestLink)} children="最新章節" />
+									<Divider />
+									<MenuItem onClick={() => onDeleteBookmark(menuTarget.data.deleteId)} children="刪除書籤" style={{ color: 'red' }} />
+								</Menu>
+							}
 						</>
 				}
 			</Container>
 			<PtToolbar>
-				<IconButton color="inherit" onClick={ onReload }><RefreshIcon /></IconButton>
+				<IconButton color="inherit" onClick={onReload}><RefreshIcon /></IconButton>
 			</PtToolbar>
 		</>
 	);

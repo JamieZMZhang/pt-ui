@@ -1,18 +1,15 @@
-import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
+import { Container, IconButton, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import * as React from 'react';
 import { PtToolbar } from '../components/PtToolbar';
 import { fetchPt } from './../fetch-pt';
 import { Loading } from './Loading';
+import LocationIcon from '@material-ui/icons/Room';
 
 export function Book(props) {
 	const [reloadKey, setReloadKey] = React.useState(0);
+	const [relocateKey, setRelocateKey] = React.useState(0);
 
 	const [content, setContent] = React.useState(null);
 
@@ -33,6 +30,29 @@ export function Book(props) {
 		[reloadKey, props.url]
 	);
 
+	const highlightArticle = React.useMemo(
+		() => {
+			if (!window.location.hash) {
+				return null;
+			}
+			return decodeURIComponent(window.location.hash.substring(1));
+		},
+		[window.location.hash]
+	);
+
+	React.useEffect(
+		() => {
+			if (highlightArticle && content) {
+				const targetIndex = content.articles.findIndex(a => a.name === highlightArticle);
+				const tag = document.querySelectorAll('.article')[targetIndex];
+				if (tag) {
+					tag.scrollIntoView({ block: 'center' });
+				}
+			}
+		},
+		[highlightArticle, content, relocateKey]
+	);
+
 	return (
 		<>
 			<Container>
@@ -40,11 +60,17 @@ export function Book(props) {
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h5" style={ { paddingTop: 8, color: localStorage.textColor } } children={ content.title } />
-							<List style={ { color: localStorage.textColor } }>
+							<Typography variant="h5" style={{ paddingTop: 8, color: localStorage.textColor }} children={content.title} />
+							<List style={{ color: localStorage.textColor }}>
 								{
 									content.articles.map((a, i) =>
-										<ListItem button key={ i } onClick={ () => props.onChangeUrl(a.link) } children={ <ListItemText primary={ a.name } color="inherit" /> } />
+										<ListItem
+											key={i}
+											button
+											onClick={() => props.onChangeUrl(a.link)}
+											children={<ListItemText primary={a.name} className="article" color="inherit" />}
+											style={{ background: highlightArticle === a.name ? '#0003' : undefined }}
+										/>
 									)
 								}
 							</List>
@@ -52,9 +78,13 @@ export function Book(props) {
 				}
 			</Container>
 			<PtToolbar>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
+				<div style={{ color: 'inherit' }}>
+					<IconButton color="inherit" onClick={() => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php')}><HomeIcon /></IconButton>
+					<IconButton color="inherit" onClick={() => setReloadKey(+new Date())}><RefreshIcon /></IconButton>
+					{
+						highlightArticle &&
+						<IconButton color="inherit" onClick={() => setRelocateKey(+new Date())}><LocationIcon /></IconButton>
+					}
 				</div>
 			</PtToolbar>
 		</>

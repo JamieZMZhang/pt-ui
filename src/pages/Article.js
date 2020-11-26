@@ -1,4 +1,4 @@
-import { Button, Snackbar } from '@material-ui/core';
+import { Button, Menu, MenuItem, Snackbar } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -34,11 +34,11 @@ export function Article(props) {
 
 				const title = html.querySelector('h1');
 				title.querySelector('a').remove();
-				data.title = title.innerText;
+				data.title = title.innerText.trim();
 
-				data.before = html.querySelector('.toplink a:nth-child(1)').href;
-				data.list = html.querySelector('.toplink a:nth-child(2)').href + 'index.html';
-				data.after = html.querySelector('.toplink a:nth-child(3)').href;
+				data.prevArticleUrl = html.querySelector('.toplink a:nth-child(1)').href;
+				data.listUrl = html.querySelector('.toplink a:nth-child(2)').href + 'index.html';
+				data.nextArticleUrl = html.querySelector('.toplink a:nth-child(3)').href;
 
 
 				const temp = document.createElement('div')
@@ -61,45 +61,59 @@ export function Article(props) {
 
 	const [showDisplayConfig, setShowDisplayConfig] = React.useState(false);
 
-
+	const [showContextMenu, setShowContextMenu] = React.useState();
 
 	return (
 		<>
 			<Snackbar
 				message="已加入書籤"
-				open={ isBookmarked }
-				onClose={ () => setIsBookmarked(false) }
-				style={ { backgroundColor: localStorage.backgroundColor, color: localStorage.textColor, bottom: 70 } }
-				action={ <Button color="inherit" onClick={ () => setIsBookmarked(false) } children="關閉" /> }
+				open={isBookmarked}
+				onClose={() => setIsBookmarked(false)}
+				style={{ backgroundColor: localStorage.backgroundColor, color: localStorage.textColor, bottom: 70 }}
+				action={<Button color="inherit" onClick={() => setIsBookmarked(false)} children="關閉" />}
 			/>
 			{
 				showDisplayConfig &&
 				<DisplayConfig
-					onChange={ () => rerender(+new Date()) }
-					onClose={ () => setShowDisplayConfig(false) }
+					onChange={() => rerender(+new Date())}
+					onClose={() => setShowDisplayConfig(false)}
 				/>
 			}
-			<Container key={ props.url } maxWidth="sm">
+			{
+				showContextMenu &&
+				<Menu open anchorReference="anchorPosition" anchorPosition={showContextMenu} onClose={() => setShowContextMenu(null)}>
+					<MenuItem children="上一章" onClick={() => props.onChangeUrl(content.prevArticleUrl)} disabled={!content || content.prevArticleUrl.endsWith('index.html')} />
+					<MenuItem children="下一章" onClick={() => props.onChangeUrl(content.nextArticleUrl)} disabled={!content || content.nextArticleUrl.endsWith('index.html')} />
+				</Menu>
+			}
+			<Container key={props.url} maxWidth="sm">
 				{
 					content === null
 						? <Loading />
 						: <>
-							<Typography variant="h5" style={ { paddingTop: 8, marginBottom: 36, color: localStorage.textColor, } } children={ content.title } />
-							<Typography style={ { fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 200, userSelect: 'none' } } children={ content.article } />
+							<Typography variant="h5" style={{ paddingTop: 8, marginBottom: 36, color: localStorage.textColor, }} children={content.title} />
+							<Typography
+								children={content.article}
+								style={{ fontSize: parseInt(localStorage.fontSize, 10), whiteSpace: 'pre-wrap', color: localStorage.textColor, paddingBottom: 200, userSelect: 'none' }}
+								onContextMenu={evt => {
+									evt.preventDefault();
+									setShowContextMenu({ left: evt.clientX, top: evt.clientY })
+								}}
+							/>
 						</>
 				}
 			</Container>
 			<PtToolbar>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php') }><HomeIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => props.onChangeUrl(content.list) }><ListIcon /></IconButton>
-					<IconButton color="inherit" onClick={ onBookmark }><FavoriteIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setReloadKey(+new Date()) }><RefreshIcon /></IconButton>
-					<IconButton color="inherit" onClick={ () => setShowDisplayConfig(true) }><TextFormatIcon /></IconButton>
+				<div style={{ color: 'inherit' }}>
+					<IconButton color="inherit" onClick={() => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php')}><HomeIcon /></IconButton>
+					<IconButton color="inherit" onClick={() => props.onChangeUrl(`${content.listUrl}#${content.title}`)}><ListIcon /></IconButton>
+					<IconButton color="inherit" onClick={onBookmark}><FavoriteIcon /></IconButton>
+					<IconButton color="inherit" onClick={() => setReloadKey(+new Date())}><RefreshIcon /></IconButton>
+					<IconButton color="inherit" onClick={() => setShowDisplayConfig(true)}><TextFormatIcon /></IconButton>
 				</div>
-				<div style={ { color: 'inherit' } }>
-					<IconButton color="inherit" disabled={ !content || content.before.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.before) }><NavBeforeIcon /></IconButton>
-					<IconButton color="inherit" disabled={ !content || content.after.endsWith('index.html') } onClick={ () => props.onChangeUrl(content.after) }><NavNextIcon /></IconButton>
+				<div style={{ color: 'inherit' }}>
+					<IconButton color="inherit" disabled={!content || content.prevArticleUrl.endsWith('index.html')} onClick={() => props.onChangeUrl(content.prevArticleUrl)}><NavBeforeIcon /></IconButton>
+					<IconButton color="inherit" disabled={!content || content.nextArticleUrl.endsWith('index.html')} onClick={() => props.onChangeUrl(content.nextArticleUrl)}><NavNextIcon /></IconButton>
 				</div>
 			</PtToolbar>
 		</>
