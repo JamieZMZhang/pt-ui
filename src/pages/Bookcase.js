@@ -14,6 +14,8 @@ const newArticleAnchor = {
 };
 
 export function Bookcase(props) {
+	const { onChangeUrl } = props;
+
 	const [reloadKey, setReloadKey] = React.useState(0);
 
 	const [list, setList] = React.useState(null);
@@ -24,7 +26,7 @@ export function Bookcase(props) {
 		() => list === null
 			? null
 			: filterNew
-				? list.filter(row => row.bookmark !== row.latest)
+				? list.filter(row => row.bookmarkedChapterTitle !== row.latestChapterTitle)
 				: list,
 		[list, filterNew]
 	);
@@ -39,11 +41,12 @@ export function Bookcase(props) {
 				const books = [...html.querySelectorAll('tr')].slice(1, -1);
 				setList(books.map(tr => ({
 					name: tr.cells[1].querySelector('a').innerText,
-					latest: getContent(tr.cells[2]),
-					latestLink: tr.cells[2].querySelector('a').href,
-					bookmark: getContent(tr.cells[3]),
-					bookmarkLink: tr.cells[3].querySelector('a').href,
-					deleteId: /delid=(\d+)/.exec(tr.cells[6].querySelector('a').href)[1]
+					latestChapterTitle: getContent(tr.cells[2]),
+					latestChapterLink: tr.cells[2].querySelector('a').href,
+					bookmarkedChapterTitle: getContent(tr.cells[3]),
+					bookmarkedChapterLink: tr.cells[3].querySelector('a').href,
+					bookmarkId: /delid=(\d+)/.exec(tr.cells[6].querySelector('a').href)[1],
+					bookId: /aid=(\d+)/.exec(tr.cells[1].querySelector('a').href)[1],
 				})));
 			});
 		},
@@ -60,14 +63,21 @@ export function Bookcase(props) {
 	);
 
 	const onDeleteBookmark = React.useCallback(
-		async bookId => {
+		async bookmarkId => {
 			if (window.confirm('確定要刪除本書嗎？')) {
-				await fetch(`https://www.ptwxz.com/modules/article/bookcase.php?delid=${bookId}`);
+				await fetch(`https://www.ptwxz.com/modules/article/bookcase.php?delid=${bookmarkId}`);
 				setMenuTarget(null);
 				onReload();
 			};
 		},
 		[onReload, setMenuTarget]
+	);
+
+	const onShowList = React.useCallback(
+		bookId => {
+			onChangeUrl(`https://www.ptwxz.com/html/${Math.floor(parseInt(bookId, 10) / 1000)}/${bookId}/`)
+		},
+		[onChangeUrl]
 	);
 
 	return (
@@ -86,14 +96,15 @@ export function Bookcase(props) {
 									<ListItem
 										button
 										key={book.name}
-										onClick={() => props.onChangeUrl(book.bookmarkLink)} onContextMenu={evt => {
+										onClick={() => book.bookmarkedChapterTitle ? onChangeUrl(book.bookmarkedChapterLink) : onShowList(book.bookId)}
+										onContextMenu={evt => {
 											evt.preventDefault();
 											setMenuTarget({ el: evt.currentTarget, data: book });
 										}}>
 										<ListItemText
 											color="inherit"
-											primary={book.latest !== book.bookmark ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={newArticleAnchor} children={book.name} /> : book.name}
-											secondary={<span style={{ color: localStorage.textColor + 'aa' }}>最新：{book.latest}<br />書籤：{book.bookmark}</span>}
+											primary={book.latestChapterTitle !== book.bookmarkedChapterTitle ? <Badge variant="dot" color="secondary" badgeContent=" " anchorOrigin={newArticleAnchor} children={book.name} /> : book.name}
+											secondary={<span style={{ color: localStorage.textColor + 'aa' }}>最新：{book.latestChapterTitle}<br />書籤：{book.bookmarkedChapterTitle}</span>}
 										/>
 									</ListItem>
 								))}
@@ -101,9 +112,10 @@ export function Bookcase(props) {
 							{
 								menuTarget &&
 								<Menu open={!!menuTarget} anchorEl={menuTarget && menuTarget.el} onClose={() => setMenuTarget(null)}>
-									<MenuItem onClick={() => props.onChangeUrl(menuTarget.data.latestLink)} children="最新章節" />
+									<MenuItem onClick={() => onChangeUrl(menuTarget.data.latestChapterLink)} children="最新章節" />
+									<MenuItem onClick={() => onShowList(menuTarget.data.bookId)} children="章節列表" />
 									<Divider />
-									<MenuItem onClick={() => onDeleteBookmark(menuTarget.data.deleteId)} children="刪除書籤" style={{ color: 'red' }} />
+									<MenuItem onClick={() => onDeleteBookmark(menuTarget.data.bookmarkId)} children="刪除書籤" style={{ color: 'red' }} />
 								</Menu>
 							}
 						</>

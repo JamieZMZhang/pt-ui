@@ -30,27 +30,34 @@ export function Book(props) {
 		[reloadKey, props.url]
 	);
 
-	const highlightArticle = React.useMemo(
+	const highlightIndex = React.useMemo(
 		() => {
-			if (!window.location.hash) {
+			if (!window.location.hash || !content) {
 				return null;
 			}
-			return decodeURIComponent(window.location.hash.substring(1));
+			const title = decodeURIComponent(window.location.hash.substring(1));
+			let targetIndex = content.articles.findIndex(a => a.name === title);
+			if (targetIndex === -1) {
+				targetIndex = content.articles.findIndex(a => title.includes(a.name));
+			}
+			if (targetIndex === -1) {
+				targetIndex = content.articles.findIndex(a => a.name.includes(title));
+			}
+			return targetIndex === -1 ? null : targetIndex;
 		},
-		[window.location.hash]
+		[window.location.hash, content]
 	);
 
 	React.useEffect(
 		() => {
-			if (highlightArticle && content) {
-				const targetIndex = content.articles.findIndex(a => a.name === highlightArticle);
-				const tag = document.querySelectorAll('.article')[targetIndex];
+			if (highlightIndex && content) {
+				const tag = document.querySelectorAll('.article')[highlightIndex];
 				if (tag) {
-					tag.scrollIntoView({ block: 'center' });
+					return tag.scrollIntoView({ block: 'center' });
 				}
 			}
 		},
-		[highlightArticle, content, relocateKey]
+		[highlightIndex, relocateKey]
 	);
 
 	return (
@@ -69,7 +76,7 @@ export function Book(props) {
 											button
 											onClick={() => props.onChangeUrl(a.link)}
 											children={<ListItemText primary={a.name} className="article" color="inherit" />}
-											style={{ background: highlightArticle === a.name ? '#0003' : undefined }}
+											style={{ background: highlightIndex === i ? '#0003' : undefined }}
 										/>
 									)
 								}
@@ -82,7 +89,7 @@ export function Book(props) {
 					<IconButton color="inherit" onClick={() => props.onChangeUrl('https://www.ptwxz.com/modules/article/bookcase.php')}><HomeIcon /></IconButton>
 					<IconButton color="inherit" onClick={() => setReloadKey(+new Date())}><RefreshIcon /></IconButton>
 					{
-						highlightArticle &&
+						highlightIndex !== null &&
 						<IconButton color="inherit" onClick={() => setRelocateKey(+new Date())}><LocationIcon /></IconButton>
 					}
 				</div>
